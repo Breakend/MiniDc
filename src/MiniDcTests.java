@@ -182,6 +182,13 @@ public class MiniDcTests {
 		assertTrue(tester.isPrintStackEmpty()); //print stack should be empty
 		tester.parseInput("n"); //pop result of stack
 		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
+		tester.parseInput("7.6");
+		tester.parseInput("8.9");
+		assertTrue(tester.parseInput(" - "));
+		assertEquals("Result", -1.3, tester.peekFromStack(), 0.00000000001); //Coverage for floats
+		tester.parseInput("n"); //pop result of stack
+		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
+
 	}
 	
 	@Test
@@ -195,6 +202,24 @@ public class MiniDcTests {
 		assertFalse(tester.parseInput(" 5-2"));
 		assertEquals("Error Strings match", "If you want to subtract 2 numbers, " +
 				"push them to the stack in the order you want to subtrac. Then send - alone", tester.peekError()); 
+	}
+	
+	@Test
+	public void testMultiplyPositiveTestCase(){
+		MiniDc tester = new MiniDc();
+		tester.parseInput("7");
+		tester.parseInput("8");
+		assertTrue(tester.parseInput(" * "));
+		assertEquals("Result", 56, tester.peekFromStack(), 0); //Result pushed to stack
+		assertTrue(tester.isPrintStackEmpty()); //print stack should be empty
+		tester.parseInput("n"); //pop result of stack
+		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
+		tester.parseInput("7.6");
+		tester.parseInput("8.9");
+		assertTrue(tester.parseInput(" * "));
+		assertEquals("Result", 67.64, tester.peekFromStack(), 0); //Coverage for floats
+		tester.parseInput("n"); //pop result of stack
+		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
 	}
 
 }
