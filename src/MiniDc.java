@@ -15,7 +15,11 @@ public class MiniDc {
 	public boolean parseInput(String input){
 		boolean setToNeg = false;
 		input = input.replaceAll("\\s",""); //remove whitespace and non characters
-		if ((input.charAt(0) == '*') && input.length() == 1){
+		if ((input.charAt(0) == '/') && input.length() == 1){
+			boolean return_ = divTopTwo();
+			return return_;
+		}
+		else if ((input.charAt(0) == '*') && input.length() == 1){
 			boolean return_ = mulTopTwo();
 			return return_;
 		}
@@ -196,6 +200,26 @@ public class MiniDc {
 		return true;
 	}
 
+	private boolean divTopTwo(){
+		double a = 0;
+		double b = 0;
+		try{
+			b = runningStack.pop();
+		} catch(Exception e){
+			errorStack.push("Stack Empty");
+			return false;
+		}
+		try{
+			a = runningStack.pop();
+		} catch(Exception e){
+			errorStack.push("Only one number on stack, can't do operation");
+			return false;
+		}
+		double result = a / b;
+		runningStack.push(result);
+		return true;
+	}
+	
 	public boolean isStackEmpty(){
 		return runningStack.isEmpty();
 	}
