@@ -19,7 +19,12 @@ public class MiniDc {
 			boolean return_ = mulTopTwo();
 			return return_;
 		}
-		if ((input.charAt(0) == '-') && input.length() == 1){
+		else if(input.contains("*") && input.length() > 1){
+			errorStack.push("If you want to multiply 2 numbers, " +
+					"push them to the stack, then send * alone");
+			return false;
+		}
+		else if ((input.charAt(0) == '-') && input.length() == 1){
 			boolean return_ = subTopTwo();
 			return return_;
 		}
