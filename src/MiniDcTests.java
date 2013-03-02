@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 
-public class ParseInputTest {
+public class MiniDcTests {
 
 	@Test
 	public void testErrorForInvalidInput() {
@@ -169,6 +169,32 @@ public class ParseInputTest {
 		assertEquals("Error Strings match", "Only one number on stack, can't do operation", tester.peekError()); 
 		assertFalse(tester.parseInput(" +2"));
 		assertEquals("Error Strings match", "If you want to add 2 numbers, push them to the stack first then send + alone", tester.peekError()); 
+	}
+	
+	
+	@Test
+	public void testSubtractPositiveTestCase(){
+		MiniDc tester = new MiniDc();
+		tester.parseInput("1");
+		tester.parseInput("2");
+		assertTrue(tester.parseInput(" - "));
+		assertEquals("Result", -1, tester.peekFromStack(), 0); //Result pushed to stack
+		assertTrue(tester.isPrintStackEmpty()); //print stack should be empty
+		tester.parseInput("n"); //pop result of stack
+		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
+	}
+	
+	@Test
+	public void testSubtractNegativeCaseEmptyStack(){
+		MiniDc tester = new MiniDc();
+		assertFalse(tester.parseInput(" - "));
+		assertEquals("Error Strings match", "Stack Empty", tester.peekError()); //Error should be that the running stack is empty
+		tester.parseInput("2");
+		assertFalse(tester.parseInput(" - "));
+		assertEquals("Error Strings match", "Only one number on stack, can't do operation", tester.peekError()); 
+		assertFalse(tester.parseInput(" 5-2"));
+		assertEquals("Error Strings match", "If you want to subtract 2 numbers, " +
+				"push them to the stack in the order you want to subtrac. Then send - alone", tester.peekError()); 
 	}
 
 }
