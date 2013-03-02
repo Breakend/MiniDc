@@ -16,12 +16,14 @@ public class MiniDc {
 		boolean setToNeg = false;
 		input = input.replaceAll("\\s",""); //remove whitespace and non characters
 		if ((input.charAt(0) == '+') && input.length() == 1){
-			if(!runningStack.isEmpty()){
-				addTopTwo();
-				return true;
-			}
+				boolean return_ = addTopTwo();
+				return return_;
 		}
-		if ((input.charAt(0) == 'f' || input.charAt(0) == 'F') && input.length() == 1){
+		else if(input.contains("+") && input.length() > 1){
+			errorStack.push("If you want to add 2 numbers, push them to the stack first then send + alone");
+			return false;
+		}
+		else if ((input.charAt(0) == 'f' || input.charAt(0) == 'F') && input.length() == 1){
 			if(!runningStack.isEmpty()){
 				dumpToPrint();
 				return true;
@@ -92,7 +94,7 @@ public class MiniDc {
 	public boolean isPrintStackEmpty(){
 		return printStack.isEmpty();
 	}
-	
+
 	public String popFromPrintStack(){
 		return printStack.pop();
 	}
@@ -107,7 +109,7 @@ public class MiniDc {
 		}
 		else return Double.toString(number);
 	}
-	
+
 	private void dumpToPrint(){
 		for(int i =0;i<runningStack.size();i++)
 		{
@@ -116,16 +118,29 @@ public class MiniDc {
 		} 
 	}
 
-	private void addTopTwo(){
-		double b = runningStack.pop();
-		double a = runningStack.pop();
+	private boolean addTopTwo(){
+		double a = 0;
+		double b = 0;
+		try{
+			b = runningStack.pop();
+		} catch(Exception e){
+			errorStack.push("Stack Empty");
+			return false;
+		}
+		try{
+			a = runningStack.pop();
+		} catch(Exception e){
+			errorStack.push("Only one number on stack, can't do operation");
+			return false;
+		}
 		double result = a + b;
 		runningStack.push(result);
+		return true;
 	}
-	
+
 	public boolean isStackEmpty(){
 		return runningStack.isEmpty();
 	}
-	
-	
+
+
 }
