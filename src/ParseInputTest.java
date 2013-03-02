@@ -20,6 +20,7 @@ public class ParseInputTest {
 	    MiniDc tester = new MiniDc();
 	    //Test invalid input
 	    assertFalse(tester.parseInput("1adfvd"));
+		assertEquals("Error Strings match", "You entered invalid input, input junked.", tester.peekError());
 	    //Make sure stack is empty
 	    assertTrue(tester.isStackEmpty());
 	  }
