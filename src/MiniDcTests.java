@@ -222,6 +222,19 @@ public class MiniDcTests {
 		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
 	}
 
+	@Test
+	public void testMultiplyNegativeCaseEmptyStack(){
+		MiniDc tester = new MiniDc();
+		assertFalse(tester.parseInput(" * "));
+		assertEquals("Error Strings match", "Stack Empty", tester.peekError()); //Error should be that the running stack is empty
+		tester.parseInput("2");
+		assertFalse(tester.parseInput(" * "));
+		assertEquals("Error Strings match", "Only one number on stack, can't do operation", tester.peekError()); 
+		assertFalse(tester.parseInput(" 5*2"));
+		assertEquals("Error Strings match", "If you want to multiply 2 numbers, " +
+				"push them to the stack, then send * alone", tester.peekError()); 
+	}
+	
 }
 
 
