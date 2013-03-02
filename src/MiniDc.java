@@ -15,7 +15,12 @@ public class MiniDc {
 	public boolean parseInput(String input){
 		boolean setToNeg = false;
 		input = input.replaceAll("\\s",""); //remove whitespace and non characters
-		System.out.println(input);
+		if ((input.charAt(0) == '+') && input.length() == 1){
+			if(!runningStack.isEmpty()){
+				addTopTwo();
+				return true;
+			}
+		}
 		if ((input.charAt(0) == 'f' || input.charAt(0) == 'F') && input.length() == 1){
 			if(!runningStack.isEmpty()){
 				dumpToPrint();
@@ -29,7 +34,6 @@ public class MiniDc {
 		else if ((input.charAt(0) == 'n' || input.charAt(0) == 'N') && input.length() == 1){
 			if(!runningStack.isEmpty()){
 				printStack.push(numberToString(runningStack.pop()));
-				System.out.println("popped");
 				return true;
 			}
 			else{
@@ -112,8 +116,16 @@ public class MiniDc {
 		} 
 	}
 
+	private void addTopTwo(){
+		double b = runningStack.pop();
+		double a = runningStack.pop();
+		double result = a + b;
+		runningStack.push(result);
+	}
+	
 	public boolean isStackEmpty(){
 		return runningStack.isEmpty();
 	}
+	
 	
 }

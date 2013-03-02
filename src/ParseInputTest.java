@@ -154,9 +154,9 @@ public class ParseInputTest {
 		tester.parseInput("2");
 		assertTrue(tester.parseInput(" + "));
 		assertEquals("Result", 3, tester.peekFromStack(), 0); //Result pushed to stack
+		assertTrue(tester.isPrintStackEmpty()); //print stack should be empty
 		tester.parseInput("n"); //pop result of stack
 		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
-		assertTrue(tester.isPrintStackEmpty()); //print stack should be empty
 	}
 
 }
