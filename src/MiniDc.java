@@ -19,13 +19,17 @@ public class MiniDc {
 			errorStack.push("Entered an empty string. Don't do that."); 
 			return false;
 		}
-		if ((input.charAt(0) == '/') && input.length() == 1){
+		 if ((input.charAt(0) == 'q') || (input.charAt(0) == 'Q') || input.contains("quit")){
+			printStack.push("You entered an exit phrase, quitting MiniDc...");
+			return true;
+		}
+		else if ((input.charAt(0) == '/') && input.length() == 1){
 			boolean return_ = divTopTwo();
 			return return_;
 		}
 		else if(input.contains("/") && input.length() > 1){
 			errorStack.push("If you want to divide 2 numbers, " +
-				"push them to the stack in the order you want to divide, then send / alone");
+					"push them to the stack in the order you want to divide, then send / alone");
 			return false;
 		}
 		else if ((input.charAt(0) == '*') && input.length() == 1){
@@ -43,12 +47,12 @@ public class MiniDc {
 		}
 		else if(input.contains("-") && (input.charAt(0) != '-') && input.length() > 1){
 			errorStack.push("If you want to subtract 2 numbers, " +
-				"push them to the stack in the order you want to subtrac. Then send - alone");
+					"push them to the stack in the order you want to subtrac. Then send - alone");
 			return false;
 		}
 		else if ((input.charAt(0) == '+') && input.length() == 1){
-				boolean return_ = addTopTwo();
-				return return_;
+			boolean return_ = addTopTwo();
+			return return_;
 		}
 		else if(input.contains("+") && input.length() > 1){
 			errorStack.push("If you want to add 2 numbers, push them to the stack first then send + alone");
@@ -149,6 +153,20 @@ public class MiniDc {
 		} 
 	}
 
+	public void printPrintStack(){
+		while(!printStack.isEmpty())
+		{
+			System.out.println(printStack.pop());
+		}
+	}
+
+	public void printErrorStack(){
+		while(!errorStack.isEmpty())
+		{
+			System.out.println(errorStack.pop());
+		}
+	}
+
 	private boolean addTopTwo(){
 		double a = 0;
 		double b = 0;
@@ -168,7 +186,7 @@ public class MiniDc {
 		runningStack.push(result);
 		return true;
 	}
-	
+
 	private boolean subTopTwo(){
 		double a = 0;
 		double b = 0;
@@ -188,7 +206,7 @@ public class MiniDc {
 		runningStack.push(result);
 		return true;
 	}
-	
+
 	private boolean mulTopTwo(){
 		double a = 0;
 		double b = 0;
@@ -228,7 +246,7 @@ public class MiniDc {
 		runningStack.push(result);
 		return true;
 	}
-	
+
 	public boolean isStackEmpty(){
 		return runningStack.isEmpty();
 	}
