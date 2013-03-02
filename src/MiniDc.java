@@ -76,6 +76,10 @@ public class MiniDc {
 	public boolean isPrintStackEmpty(){
 		return printStack.isEmpty();
 	}
+	
+	public String popFromPrintStack(){
+		return "";
+	}
 
 	public String peekError(){
 		return errorStack.peek();
@@ -91,4 +95,5 @@ public class MiniDc {
 	public boolean isStackEmpty(){
 		return runningStack.isEmpty();
 	}
+	
 }

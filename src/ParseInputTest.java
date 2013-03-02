@@ -111,6 +111,31 @@ public class ParseInputTest {
 		assertEquals("Error Strings match", "To print please use n or N alone, if you want to Pop", tester.peekError()); 
 		//If contains n but not properly formatted
 	}
+	
+	@Test
+	public void testFCommandPositiveCase(){
+		MiniDc tester = new MiniDc();
+		tester.parseInput("1");
+		tester.parseInput("2");
+		tester.parseInput("3");
+		tester.parseInput("6.4");
+		tester.parseInput("_100");
+		assertTrue(tester.parseInput(" f "));
+		assertEquals("Result: ", "-100", tester.popFromPrintStack());
+		assertEquals("Result: ", "6.4", tester.popFromPrintStack());
+		assertEquals("Result: ", "3", tester.popFromPrintStack());
+		assertEquals("Result: ", "2", tester.popFromPrintStack());
+		assertEquals("Result: ", "1", tester.popFromPrintStack());
+		assertTrue(tester.isPrintStackEmpty()); //contains all the inputed numbers in print stack (gets printed in main loop)
+		tester.parseInput(" N "); //pop -100 off the stack, should still be there, try with capital N
+		assertEquals("Result: ", "6.4", tester.popFromPrintStack());
+		assertEquals("Result: ", "3", tester.popFromPrintStack());
+		assertEquals("Result: ", "2", tester.popFromPrintStack());
+		assertEquals("Result: ", "1", tester.popFromPrintStack());
+		assertTrue(tester.isPrintStackEmpty());
+	}
+	
+
 }
 
 
