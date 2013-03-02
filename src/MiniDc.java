@@ -15,12 +15,21 @@ public class MiniDc {
 	public boolean parseInput(String input){
 		boolean setToNeg = false;
 		input = input.replaceAll("\\s",""); //remove whitespace and non characters
-		if ((input.charAt(0) == 'n' || input.charAt(0) == 'N') && input.length() == 1){
+		System.out.println(input);
+		if ((input.charAt(0) == 'f' || input.charAt(0) == 'F') && input.length() == 1){
+			if(!runningStack.isEmpty()){
+				dumpToPrint();
+				return true;
+			}
+		}
+		else if ((input.charAt(0) == 'n' || input.charAt(0) == 'N') && input.length() == 1){
 			if(!runningStack.isEmpty()){
 				printStack.push(numberToString(runningStack.pop()));
+				System.out.println("popped");
 				return true;
 			}
 			else{
+				System.out.println("error with n");
 				errorStack.push("Stack Empty");
 				return false;
 			}
@@ -78,7 +87,7 @@ public class MiniDc {
 	}
 	
 	public String popFromPrintStack(){
-		return "";
+		return printStack.pop();
 	}
 
 	public String peekError(){
@@ -90,6 +99,14 @@ public class MiniDc {
 			return Integer.toString((int)number);
 		}
 		else return Double.toString(number);
+	}
+	
+	private void dumpToPrint(){
+		for(int i =0;i<runningStack.size();i++)
+		{
+			String item = numberToString(runningStack.get(i));
+			printStack.push(item);
+		} 
 	}
 
 	public boolean isStackEmpty(){

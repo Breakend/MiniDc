@@ -88,10 +88,12 @@ public class ParseInputTest {
 		assertTrue(tester.parseInput("188.81"));
 		assertTrue(tester.parseInput(" n "));
 		assertEquals("Latest item on print stack is expected", "188.81", tester.peekPrintStack()); //Latest number
+		assertEquals("Latest item on print stack is expected", -1, tester.peekFromStack(), 0); //Latest number
 		assertEquals("Result", -1, tester.peekFromStack(), 0); //should have popped 188.81
 		assertTrue(tester.parseInput("28.11"));
 		assertTrue(tester.parseInput(" N ")); //works with capital
 		assertEquals("Latest item on print stack is expected", "28.11", tester.peekPrintStack()); //Latest number
+		assertEquals("Latest item on print stack is expected", -1, tester.peekFromStack(), 0); //Latest number
 		assertEquals("Result", -1, tester.peekFromStack(), 0); //should have popped 28.11
 		assertTrue(tester.parseInput("   n")); //works with capital
 		assertEquals("Latest item on print stack is expected", "-1", tester.peekPrintStack()); //Latest number
@@ -127,12 +129,23 @@ public class ParseInputTest {
 		assertEquals("Result: ", "2", tester.popFromPrintStack());
 		assertEquals("Result: ", "1", tester.popFromPrintStack());
 		assertTrue(tester.isPrintStackEmpty()); //contains all the inputed numbers in print stack (gets printed in main loop)
-		tester.parseInput(" N "); //pop -100 off the stack, should still be there, try with capital N
+		assertTrue(tester.parseInput(" n ")); //pop -100 off the stack
+		assertEquals("Result: ", "-100", tester.popFromPrintStack());//because of n
+		assertTrue(tester.isPrintStackEmpty()); //print stack empty
+		assertTrue(tester.parseInput(" f ")); //f no longer has -100
 		assertEquals("Result: ", "6.4", tester.popFromPrintStack());
 		assertEquals("Result: ", "3", tester.popFromPrintStack());
 		assertEquals("Result: ", "2", tester.popFromPrintStack());
 		assertEquals("Result: ", "1", tester.popFromPrintStack());
 		assertTrue(tester.isPrintStackEmpty());
+	}
+	
+	@Test
+	public void testFCommandNegativeCaseEmptyStack(){
+		MiniDc tester = new MiniDc();
+		assertTrue(tester.parseInput(" f "));
+		assertEquals("Error Strings match", "Stack Empty", tester.peekError()); //Error should be that the running stack is empty
+
 	}
 	
 
