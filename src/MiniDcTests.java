@@ -235,6 +235,23 @@ public class MiniDcTests {
 				"push them to the stack, then send * alone", tester.peekError()); 
 	}
 	
+	@Test
+	public void testDividePositiveTestCase(){
+		MiniDc tester = new MiniDc();
+		tester.parseInput("60");
+		tester.parseInput("5");
+		assertTrue(tester.parseInput(" / "));
+		assertEquals("Result", 12, tester.peekFromStack(), 0); //Result pushed to stack
+		assertTrue(tester.isPrintStackEmpty()); //print stack should be empty
+		tester.parseInput("n"); //pop result of stack
+		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
+		tester.parseInput("7");
+		tester.parseInput("8");
+		assertTrue(tester.parseInput(" / "));
+		assertEquals("Result", 0.875, tester.peekFromStack(), 0); //Coverage for floats
+		tester.parseInput("n"); //pop result of stack
+		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
+	}
 }
 
 
