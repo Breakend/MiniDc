@@ -35,10 +35,12 @@ public class ParseInputTest {
 	  public void testSimpleNegativeNumbersNegativeCase(){
 		  MiniDc tester = new MiniDc();
 		  //try to use minus operator as negative, should fail
+		  tester.parseInput(" 2.75 "); //number with decimal
 		  assertFalse(tester.parseInput(" -1 ")); 
 		  assertEquals("Error Strings match", "Improper negative symbol, try _ instead of -", tester.peekError());
-		  assertEquals("Result", -1, tester.peekFromStack(), 0);
+		  assertEquals("Result", 2.75, tester.peekFromStack(), 0);
 		  tester.parseInput(" _");
+		  assertEquals("Result", 2.75, tester.peekFromStack(), 0);
 		  assertEquals("Error Strings match", "You entered invalid input, input junked.", tester.peekError());
 	  }
 	  

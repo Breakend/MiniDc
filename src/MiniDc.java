@@ -20,6 +20,7 @@ public class MiniDc {
 				printStack.push(Double.toString(runningStack.peek()));
 			} else{
 				errorStack.push("The stack is empty, you can't print an empty stack");
+				return false;
 			}
 
 		}
