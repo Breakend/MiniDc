@@ -19,6 +19,11 @@ public class MiniDc {
 			boolean return_ = divTopTwo();
 			return return_;
 		}
+		else if(input.contains("/") && input.length() > 1){
+			errorStack.push("If you want to divide 2 numbers, " +
+				"push them to the stack in the order you want to divide, then send / alone");
+			return false;
+		}
 		else if ((input.charAt(0) == '*') && input.length() == 1){
 			boolean return_ = mulTopTwo();
 			return return_;
