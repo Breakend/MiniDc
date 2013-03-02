@@ -15,6 +15,10 @@ public class MiniDc {
 	public boolean parseInput(String input){
 		boolean setToNeg = false;
 		input = input.replaceAll("\\s",""); //remove whitespace and non characters
+		if(input == "") {
+			errorStack.push("Entered an empty string. Don't do that."); 
+			return false;
+		}
 		if ((input.charAt(0) == '/') && input.length() == 1){
 			boolean return_ = divTopTwo();
 			return return_;
