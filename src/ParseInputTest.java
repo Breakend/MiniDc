@@ -143,11 +143,21 @@ public class ParseInputTest {
 	@Test
 	public void testFCommandNegativeCaseEmptyStack(){
 		MiniDc tester = new MiniDc();
-		assertTrue(tester.parseInput(" f "));
+		assertFalse(tester.parseInput(" f "));
 		assertEquals("Error Strings match", "Stack Empty", tester.peekError()); //Error should be that the running stack is empty
-
 	}
 	
+	@Test
+	public void testAddPositiveTestCase(){
+		MiniDc tester = new MiniDc();
+		tester.parseInput("1");
+		tester.parseInput("2");
+		assertTrue(tester.parseInput(" + "));
+		assertEquals("Result", 3, tester.peekFromStack(), 0); //Result pushed to stack
+		tester.parseInput("n"); //pop result of stack
+		assertTrue(tester.isStackEmpty()); //stack should be empty, the original numbers should not be there
+		assertTrue(tester.isPrintStackEmpty()); //print stack should be empty
+	}
 
 }
 

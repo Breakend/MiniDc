@@ -21,6 +21,10 @@ public class MiniDc {
 				dumpToPrint();
 				return true;
 			}
+			else{
+				errorStack.push("Stack Empty");
+				return false;
+			}
 		}
 		else if ((input.charAt(0) == 'n' || input.charAt(0) == 'N') && input.length() == 1){
 			if(!runningStack.isEmpty()){
@@ -29,7 +33,6 @@ public class MiniDc {
 				return true;
 			}
 			else{
-				System.out.println("error with n");
 				errorStack.push("Stack Empty");
 				return false;
 			}
