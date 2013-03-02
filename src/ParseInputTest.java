@@ -81,14 +81,22 @@ public class ParseInputTest {
 		  assertEquals("Error Strings match", "To print please use p or P alone", tester.peekError()); //If contains p but not proper
 	  }
 
-//	  @Test
-//	  public void testNCommandPositiveCase(){
-//		  MiniDc tester = new MiniDc();
-//		  tester.parseInput("_1");
-//		  tester.parseInput("188.81");
-//		  assertFalse()
-//		  
-//	  }
+	  @Test
+	  public void testNCommandPositiveCase(){
+		  MiniDc tester = new MiniDc();
+		  assertTrue(tester.parseInput("_1"));
+		  assertTrue(tester.parseInput("188.81"));
+		  assertTrue(tester.parseInput(" n "));
+		  assertEquals("Latest item on print stack is expected", "118.81", tester.peekPrintStack()); //Latest number
+		  assertEquals("Result", -1, tester.peekFromStack(), 0); //should have popped 188.81
+		  assertTrue(tester.parseInput("28.11"));
+		  assertTrue(tester.parseInput(" N ")); //works with capital
+		  assertEquals("Latest item on print stack is expected", "28.11", tester.peekPrintStack()); //Latest number
+		  assertEquals("Result", -1, tester.peekFromStack(), 0); //should have popped 28.11
+		  assertTrue(tester.parseInput("   n")); //works with capital
+		  assertEquals("Latest item on print stack is expected", "-1", tester.peekPrintStack()); //Latest number
+		  assertTrue(tester.isStackEmpty()); //stack should be empty
+	  }
 }
 
 
