@@ -32,6 +32,14 @@ public class ParseInputTest {
 	  }
 	  
 	  @Test
+	  public void testNumberOutOfRange(){
+		  MiniDc tester = new MiniDc();
+		  tester.parseInput("1.80769313486231570E308"); //Out of Double range, too big
+		  assertTrue(tester.isStackEmpty()); //Nothing was added to the stack
+		  assertEquals("Error Strings match", "Out of range.", tester.peekError());
+	  }
+	  
+	  @Test
 	  public void testSimpleNegativeNumbersNegativeCase(){
 		  MiniDc tester = new MiniDc();
 		  //try to use minus operator as negative, should fail
@@ -69,10 +77,18 @@ public class ParseInputTest {
 		  assertEquals("Error Strings match", "Stack Empty", tester.peekError()); //Error should be that the running stack is empty
 		  tester.parseInput("_1");
 		  assertFalse(tester.parseInput(" PRINT ")); //Doesn't work as part of larger string
-		  assertThat("-1", not(equalTo(tester.peekPrintStack())));
+		  assertTrue(tester.isPrintStackEmpty()); //make sure the printstack is empty still
 		  assertEquals("Error Strings match", "To print please use p or P alone", tester.peekError()); //If contains p but not proper
 	  }
 
+//	  @Test
+//	  public void testNCommandPositiveCase(){
+//		  MiniDc tester = new MiniDc();
+//		  tester.parseInput("_1");
+//		  tester.parseInput("188.81");
+//		  assertFalse()
+//		  
+//	  }
 }
 
 

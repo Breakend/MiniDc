@@ -12,19 +12,23 @@ public class MiniDc {
 		printStack = new Stack<String>();
 	}
 
-	boolean parseInput(String input){
+	public boolean parseInput(String input){
 		boolean setToNeg = false;
 		input = input.replaceAll("\\s",""); //remove whitespace and non characters
 		if ((input.charAt(0) == 'p' || input.charAt(0) == 'P') && input.length() == 1){
 			if(!runningStack.isEmpty()){
-				printStack.push(Double.toString(runningStack.peek()));
+				printStack.push(numberToString(runningStack.peek()));
+				return true;
 			} else{
-				errorStack.push("The stack is empty, you can't print an empty stack");
+				errorStack.push("Stack Empty");
 				return false;
 			}
-
 		}
-		if (input.charAt(0) == '_' && input.length() > 1){
+		else if((input.charAt(0) == 'p' || input.charAt(0) == 'P') && input.length() > 1){
+			errorStack.push("To print please use p or P alone");
+			return false;
+		}
+		else if (input.charAt(0) == '_' && input.length() > 1){
 			input = input.replaceAll("_","");
 			setToNeg = true;
 		}
@@ -34,6 +38,10 @@ public class MiniDc {
 		}
 		try{
 			double temp = Double.parseDouble(input);
+			if(temp == Double.POSITIVE_INFINITY || temp == Double.NEGATIVE_INFINITY || Double.isNaN(temp) ){
+				errorStack.push("Out of range.");
+				return false;
+			}
 			if(setToNeg == true) temp = temp*-1.0;
 			runningStack.push(temp);
 		} catch(NumberFormatException e){
@@ -43,23 +51,30 @@ public class MiniDc {
 		return true;
 	}
 
-	String peekPrintStack(){
+	public String peekPrintStack(){
 		return printStack.peek();
 	}
 
-	double peekFromStack(){
+	public double peekFromStack(){
 		return runningStack.peek();
 	}
 	
-	boolean isPrintStackEmpty(){
+	public boolean isPrintStackEmpty(){
 		return printStack.isEmpty();
 	}
 
-	String peekError(){
+	public String peekError(){
 		return errorStack.peek();
 	}
+	
+	private String numberToString(double number){
+		if((int)number == number){
+			return Integer.toString((int)number);
+		}
+		else return Double.toString(number);
+	}
 
-	boolean isStackEmpty(){
+	public boolean isStackEmpty(){
 		return runningStack.isEmpty();
 	}
 }
