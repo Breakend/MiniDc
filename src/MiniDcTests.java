@@ -14,6 +14,16 @@ public class MiniDcTests {
 		//Make sure stack is empty
 		assertTrue(tester.isStackEmpty());
 	}
+	
+	@Test
+	public void testErrorForInvalidInputEmptyString() {
+		MiniDc tester = new MiniDc();
+		//Test invalid input
+		assertFalse(tester.parseInput(""));
+		assertEquals("Error Strings match", "Entered an empty string. Don't do that.", tester.peekError());
+		//Make sure stack is empty
+		assertTrue(tester.isStackEmpty());
+	}
 
 	@Test
 	public void testSimplePositiveNumbers() {
