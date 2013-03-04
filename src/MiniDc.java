@@ -13,12 +13,12 @@ public class MiniDc {
 	}
 
 	public boolean parseInput(String input){
-		boolean setToNeg = false;
-		input = input.replaceAll("\\s",""); //remove whitespace and non characters
-		if(input == "") {
+		if(input == "" || input == null) {
 			errorStack.push("Entered an empty string. Don't do that."); 
 			return false;
 		}
+		boolean setToNeg = false;
+		input = input.replaceAll("\\s",""); //remove whitespace and non characters
 		 if ((input.charAt(0) == 'q') || (input.charAt(0) == 'Q') || input.contains("quit")){
 			printStack.push("You entered an exit phrase, quitting MiniDc...");
 			return true;
@@ -105,10 +105,10 @@ public class MiniDc {
 		}
 		try{
 			double temp = Double.parseDouble(input);
-			if(temp == Double.POSITIVE_INFINITY || temp == Double.NEGATIVE_INFINITY || Double.isNaN(temp) ){
-				errorStack.push("Out of range.");
-				return false;
-			}
+            if(temp == Double.POSITIVE_INFINITY || temp == Double.NEGATIVE_INFINITY || Double.isNaN(temp) ){
+                errorStack.push("Out of range.");
+                return false;
+            }
 			if(setToNeg == true) temp = temp*-1.0;
 			runningStack.push(temp);
 		} catch(NumberFormatException e){
@@ -166,7 +166,9 @@ public class MiniDc {
 			System.out.println(errorStack.pop());
 		}
 	}
-
+	public boolean isErrorStackEmpty(){
+		return errorStack.isEmpty();
+	}
 	private boolean addTopTwo(){
 		double a = 0;
 		double b = 0;
@@ -179,6 +181,7 @@ public class MiniDc {
 		try{
 			a = runningStack.pop();
 		} catch(Exception e){
+			runningStack.push(b); //restore b
 			errorStack.push("Only one number on stack, can't do operation");
 			return false;
 		}
@@ -199,6 +202,7 @@ public class MiniDc {
 		try{
 			a = runningStack.pop();
 		} catch(Exception e){
+			runningStack.push(b); //restore b
 			errorStack.push("Only one number on stack, can't do operation");
 			return false;
 		}
@@ -219,6 +223,7 @@ public class MiniDc {
 		try{
 			a = runningStack.pop();
 		} catch(Exception e){
+			runningStack.push(b); //restore b
 			errorStack.push("Only one number on stack, can't do operation");
 			return false;
 		}
@@ -239,6 +244,7 @@ public class MiniDc {
 		try{
 			a = runningStack.pop();
 		} catch(Exception e){
+			runningStack.push(b); //restore b
 			errorStack.push("Only one number on stack, can't do operation");
 			return false;
 		}
